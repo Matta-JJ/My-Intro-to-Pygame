@@ -21,8 +21,8 @@ clock = pygame.time.Clock() #frame rate
 #test_font = pygame.font.Font(font type, font size)
 test_font = pygame.font.Font('font/Pixeltype.ttf', 50) #creating a font (make sure to captialize second font)
 
-sky_surface = pygame.image.load('graphics/Sky.png')
-ground_surface = pygame.image.load('graphics/ground.png')
+sky_surface = pygame.image.load('graphics/Sky.png').convert_alpha() #.convert helps convert the image into something that pygame can work with much easier
+ground_surface = pygame.image.load('graphics/ground.png').convert_alpha()
 
 #whenever we want to create text we first need to create an image of the text and then
 	#place it on the display surface
@@ -32,30 +32,64 @@ ground_surface = pygame.image.load('graphics/ground.png')
 	# Anti Aliasing means we smooth the edges of the text, which is not necessary in pixel art, but any other text you want it to be true
 text_surface = test_font.render('My Game', False, 'Black')
 
+#Next we are wanting to move the snail from the left side of the image to the right
+snail_surf = pygame.image.load('graphics/snail/snail1.png').convert_alpha() #just this is static and we need it to move
+#snail_x_pos = 600 # we moved the 600 that was in the snail position into a variable
+snail_rect = snail_surf.get_rect(bottomright = (600,300))
+
+
+player_surf = pygame.image.load('graphics/player/player_walk_1.png').convert_alpha()
+player_rect = player_surf.get_rect(midbottom = (80,300))
+
+
 while True:
 	for event in pygame.event.get(): #all the possble events. All the poissble inputs a player can put and the event just loops through it
 		if event.type == pygame.QUIT: #looking to see if the player input(event) was quit because if it was then the player can exit the game this will repeat each frame
 			pygame.quit()
 			exit() #look NOTE2 for explanation
+		if event.type == pygame.MOUSEMOTION:
+			event.pos
+
+
 	#draw all our elements
 	#update everything
 	#screen.blit(surface,position) #bloock mage transfer put one mage on another image
 	screen.blit(sky_surface,(0,0))
 	screen.blit(ground_surface,(0,300))
 	screen.blit(text_surface, (300, 50)) #third step to creating a font
+	#snail_x_pos -= 4 #this is so that every time the loop runs we move the snails position by 1 so the snail will be moving about 60 frames every second
+		#left is -= 1 and right is += 1
+	#Our next problem is that we need something to help when the snail moves out of the display window so we use an if statement
+	#if snail_surface 
+	#if snail_x_pos < -100: snail_x_pos = 800
+	snail_rect.x -= 4
+	if snail_rect.right <= 0: snail_rect.left = 800
+	screen.blit(snail_surf, snail_rect)
+	#player_rect.left += 1
+	screen.blit(player_surf, player_rect)
+
+	if player.rect.colliderect(snail_rect): #this returns either a 0 or 1 if there is no collision we get a one if there is a collision we get a 1
+#rect1.collidepoint(x,y) is important for when you are using clickers
+
+	mouse_pos = pygame.mouse.get_pos()
+	if player_rect.collidepoint((mouse_pos)):
+		pygame.mouse.get_pressed
+
 	pygame.display.update() #ths will update the display surface that we had created earlier
+	clock.tick(60) #tells pygame that while true loop shouldnt run faster than 6-fps
 		#anything we hae drawn inside of whle loop, we want to display to the player
 		#therefore we have to take it and actually put it on the dsplay surface. Like pygame init once you call it you don't have to worry about it anyore
 
 #NOTE1: do not run the code before putting a player input as there is no way to exit the window wthout the code inside the loop for the player to close the window
 #NOTE2: pygame.error: video system not initialized ** This is because whenever we have pygame.init which starts pygame and pygame.quit they are polar opposites
 	#so we are still closing pygame and having the while loop open so we need to end that whle loop on the spot, most secure is through sys module and close any type of code interily so from sys import exit then call exit under the pygame.quit()
-#NOTE3 we dont want our game to run to fast and to run too slow we want t to be constant so we need to wearry of our frame rate and pxels 60 fps - for ceiling and floor
+#NOTE3: we dont want our game to run to fast and to run too slow we want t to be constant so we need to wearry of our frame rate and pxels 60 fps - for ceiling and floor
 	#computer can run game slower but cant run faster than it's capable of runnng
-	clock.tick(60) #tells pygame that while true loop shouldnt run faster than 6-fps
 
-
-#NOTE4 regular surface - essentiall a sngle mage (somethng mported, rendered text or a plain color) - 
+#NOTE4: regular surface - essentiall a sngle mage (somethng mported, rendered text or a plain color) - 
 	 #it needs to be placed on the display surface to be visible 
 	 #you can have as many regular surfaces as you want, only dsplayed when connect to the display surface whch is unique and s always vsible
-#NOTE5 python order matters
+#NOTE5: python order matters
+#NOTE6: How to animate in pygame. We are not drawing static image, but we are updating the image over and over again 60 times a second and placing it in the same place
+	# animating each just means changing the position slight on each frame
+#NOTE7: Rectangles, Precise positioning of surfaces, helps avoid basic collisions 
