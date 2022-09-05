@@ -15,10 +15,15 @@ pygame.display.set_caption('Runner') #setting title
 clock = pygame.time.Clock() #frame rate
 
 # this s temporary to play wth test_surface = pygame.Surface((w,h))
-test_surface = pygame.Surface((100,200))
-test_surface.fill('Red')
+#test_surface = pygame.Surface((100,200))
+#test_surface.fill('Red')
+
+#test_font = pygame.font.Font(font type, font size)
+test_font = pygame.font.Font(None, 50)
 
 
+sky_surface = pygame.image.load('graphics/Sky.png')
+ground_surface = pygame.image.load('graphics/ground.png')
 
 while True:
 	for event in pygame.event.get(): #all the possble events. All the poissble inputs a player can put and the event just loops through it
@@ -27,9 +32,9 @@ while True:
 			exit() #look NOTE2 for explanation
 	#draw all our elements
 	#update everything
-
 	#screen.blit(surface,position) #bloock mage transfer put one mage on another image
-	screen.blit(test_surface,(0,0))
+	screen.blit(sky_surface,(0,0))
+	screen.blit(ground_surface,(0,300))
 	pygame.display.update() #ths will update the display surface that we had created earlier
 		#anything we hae drawn inside of whle loop, we want to display to the player
 		#therefore we have to take it and actually put it on the dsplay surface. Like pygame init once you call it you don't have to worry about it anyore
@@ -45,3 +50,4 @@ while True:
 #NOTE4 regular surface - essentiall a sngle mage (somethng mported, rendered text or a plain color) - 
 	 #it needs to be placed on the display surface to be visible 
 	 #you can have as many regular surfaces as you want, only dsplayed when connect to the display surface whch is unique and s always vsible
+#NOTE5 python order matters
