@@ -19,11 +19,18 @@ clock = pygame.time.Clock() #frame rate
 #test_surface.fill('Red')
 
 #test_font = pygame.font.Font(font type, font size)
-test_font = pygame.font.Font(None, 50)
-
+test_font = pygame.font.Font('font/Pixeltype.ttf', 50) #creating a font (make sure to captialize second font)
 
 sky_surface = pygame.image.load('graphics/Sky.png')
 ground_surface = pygame.image.load('graphics/ground.png')
+
+#whenever we want to create text we first need to create an image of the text and then
+	#place it on the display surface
+	#To work with text there are three different steps 
+		#1 Create a font (text size and style) 2. Write text on a surface 3. Blit the text surface (so place the surface on the actual image)
+#text_surface = test_font.render(text_info, Anti Aliasing, color) # second step which is writing a text on a surface #render needs three bits of information
+	# Anti Aliasing means we smooth the edges of the text, which is not necessary in pixel art, but any other text you want it to be true
+text_surface = test_font.render('My Game', False, 'Black')
 
 while True:
 	for event in pygame.event.get(): #all the possble events. All the poissble inputs a player can put and the event just loops through it
@@ -35,6 +42,7 @@ while True:
 	#screen.blit(surface,position) #bloock mage transfer put one mage on another image
 	screen.blit(sky_surface,(0,0))
 	screen.blit(ground_surface,(0,300))
+	screen.blit(text_surface, (300, 50)) #third step to creating a font
 	pygame.display.update() #ths will update the display surface that we had created earlier
 		#anything we hae drawn inside of whle loop, we want to display to the player
 		#therefore we have to take it and actually put it on the dsplay surface. Like pygame init once you call it you don't have to worry about it anyore
