@@ -1,6 +1,6 @@
 import pygame #When starting a new pygame project import it and then run to see if its workng
 	#if it is not working most likely need to install or update pygame in terminal $pip3 install pygame
-from sys import exit #look NOTE2 for explanation
+from sys import exit #look NOTE2 for explanations
 
 pygame.init() #this is to initialize pygame, it's like starting the engine of a car
 
