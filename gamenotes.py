@@ -45,12 +45,15 @@ player_rect = player_surf.get_rect(midbottom = (80,300))
 
 
 while True:
+
 	for event in pygame.event.get(): #all the possble events. All the poissble inputs a player can put and the event just loops through it
 		if event.type == pygame.QUIT: #looking to see if the player input(event) was quit because if it was then the player can exit the game this will repeat each frame
 			pygame.quit()
 			exit() #look NOTE2 for explanation
-		#if event.type == pygame.MOUSEMOTION:
-			#if player_rect.collidepoint(event.pos): print('collision')
+
+		if event.type == pygame.MOUSEBUTTONDOWN: #check if any mouse button pressed
+			if player_rect.collidepoint(event.pos):
+				player_gravity = -20
 
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_SPACE:
@@ -74,6 +77,7 @@ while True:
 	if snail_rect.right <= 0: snail_rect.left = 800
 	screen.blit(snail_surf,snail_rect)
 	#player_rect.left += 1
+	if player_rect.bottom >= 300: player_rect.bottom = 300 #everytime the player is exceeding the ground we are going to set the player on top of the ground
 	screen.blit(player_surf,player_rect)
 
 	#keys = pygame.key.get_pressed()
@@ -109,4 +113,5 @@ while True:
 	#two ways to get keyboard input is with method or through event loop
 		#Keyboard input in the event loop 1. check if any button was pressed 2 work with a specific key
 			#there's two methods because when using classes you want the controls isnide of the relevant class. Pygame.mouse and pygame.keys are great for that
-	
+	# creating the floor, check the collision between player and floor and move player up if collision
+		#all the we really need is to check y position of the player player.bottom > 300: player.bottom = 300
