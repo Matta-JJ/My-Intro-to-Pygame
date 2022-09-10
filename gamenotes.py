@@ -145,4 +145,6 @@ while True:
 
 
 #NOTE10 We now want to continously update our score so we 1 need to update score on every frame, 2 put that
-	#that on a surface 3 display that surface
+	#that on a surface 3 display that 
+
+#NOTE11 we are going to create: a sprite class for the player and a sprite class for each obstacle
