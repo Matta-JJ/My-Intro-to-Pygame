@@ -2,6 +2,10 @@ import pygame #When starting a new pygame project import it and then run to see 
 	#if it is not working most likely need to install or update pygame in terminal $pip3 install pygame
 from sys import exit #look NOTE2 for explanations
 
+def display_score(): #get our time in miliseconds
+	pygame.time.get_ticks()
+	print(current_time)
+
 pygame.init() #this is to initialize pygame, it's like starting the engine of a car
 #The next thing to do is create a display surface, this window the player is going
 	#to see at the end - screen = pygame.display.set_mode((width,height)) 
@@ -33,6 +37,7 @@ ground_surface = pygame.image.load('graphics/ground.png').convert_alpha()
 	# Anti Aliasing means we smooth the edges of the text, which is not necessary in pixel art, but any other text you want it to be true
 score_surf = test_font.render('My Game', False, (64,64,64))
 score_rect = score_surf.get_rect(center = (400,50)
+
 
 
 #Next we are wanting to move the snail from the left side of the image to the right
@@ -139,4 +144,5 @@ while True:
 	#game and game over - when player colldes with object it will stop the game and show the score. We need to put the entire game in an if statement. This is basic logic and not recommended 
 
 
-
+#NOTE10 We now want to continously update our score so we 1 need to update score on every frame, 2 put that
+	#that on a surface 3 display that surface
